@@ -1,38 +1,421 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  /* (Dark Mode Elements) */
+  --Dark-Blue: hsl(209, 23%, 22%);
+  /* (Dark Mode Background) */
+--Very-Dark-Blue-background: hsl(207, 26%, 17%);
+/* (Light Mode Text) */
+--Very-Dark-Blue-text: hsl(200, 15%, 8%);
+/* (Light Mode Input) */
+--Dark-Gray: hsl(0, 0%, 52%);
+/* (Light Mode Background) */
+--Very-Light-Gray : hsl(0, 0%, 98%);
+/* (Dark Mode Text & Light Mode Elements) */
+--White: hsl(0, 0%, 100%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+img {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
-.App-header {
-  background-color: #282c34;
+a, button, img {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  position: relative;
   min-height: 100vh;
+}
+
+.App {
+  background-color: var(--Very-Light-Gray);
+  color: var(--Very-Dark-Blue-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App.dark {
+  background-color: var(--Very-Dark-Blue-background);
+  color: var(--White);
+  min-height: 100vh;
+}
+
+.App.dark input::placeholder {
+  color: var(--white);
+}
+
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 2rem 4rem;
+  background-color: white !important;
+  box-shadow:0px 0px 4px 0px #111517;
+}
+
+.navbar h1 {
+  font-family: cursive
+}
+
+.navbar .theme-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: black;
   color: white;
+  font-weight: 700;
+  padding: .5rem 1rem;
+  border-radius: 6px;
 }
 
-.App-link {
-  color: #61dafb;
+.App.dark .navbar .theme-toggle {
+  background-color: white;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App.dark .navbar {
+  background-color: var(--Dark-Blue) !important;
+}
+
+.navbar .theme-icon {
+  margin-right: .8rem;
+  background: transparent;
+  border-radius: 50%;
+  filter: invert(50%);
+}
+
+.App.dark .navbar .theme-icon {
+  background: transparent;
+  border-radius: 50%;
+}
+
+.filter-countries {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 4rem;
+}
+
+.filter-countries .search-filter {
+  position: relative;
+  width: 20rem;
+  height: 3rem;
+  border-radius: 8px;
+  background-color: var(--White);
+}
+
+.App.dark .filter-countries .search-filter {
+  background-color: var(--Dark-Blue);
+}
+
+.filter-countries .search-filter img {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.filter-countries .search-filter input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+  padding-left: 3rem;
+  background: none;
+}
+
+.filter-countries .search-filter input::placeholder {
+  font-family: cursive;
+}
+
+.App.dark .filter-countries .search-filter input::placeholder {
+  color: var(--White);
+}
+
+.filter-countries .region-filter {
+  position: relative;
+}
+
+.filter-countries .region-filter .filter-control {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 16rem;
+  padding: 1rem 0;
+  background-color: var(--White);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.App.dark .filter-countries .region-filter .filter-control {
+  background-color: var(--Dark-Blue);
+}
+
+.filter-countries .region-filter .regions {
+  position: absolute;
+  top: 4.3rem;
+  background-color: var(--White);
+  padding: 1rem;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.filter-countries .region-filter .regions p {
+  cursor: pointer;
+}
+
+.filter-countries .region-filter .regions p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.App.dark .filter-countries .region-filter .regions {
+  background-color: var(--Dark-Blue);
+}
+
+.countries {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 2rem 4rem;
+  width: 100%;
+}
+
+.countries .country  {
+  background-color: white;
+  text-wrap: wrap;
+  margin-bottom: 6rem;
+  border-radius: 8px;
+  box-shadow:0px 0px 2px 1px #ede7e7;
+}
+
+.App.dark .countries .country  {
+  background-color: var(--Dark-Blue);
+  box-shadow:0px 0px 2px 1px #2d2828;
+}
+
+.countries .country img {
+  width: 22rem;
+  height: 14rem;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.countries .country .country-info  {
+  padding: 2rem;
+}
+
+.countries .country .country-info h3  {
+  margin-bottom: 1rem;
+  width: 16rem;
+}
+
+.countries .country .country-info p  {
+  margin-bottom: .6rem;
+}
+
+/* Country page */
+.country-page {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  top: 0;
+  z-index: 4;
+  background-color: var(--White);
+  overflow-y: hidden;
+}
+
+.App.dark .country-page {
+  background-color: var(--Very-Dark-Blue-background);
+}
+
+.country-page .go-back {
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  margin: 3rem 4rem;
+  padding: .5rem 1rem;
+  box-shadow: 0px 0px 2px 1px #111517;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.country-page .go-back img{
+  margin-right: 1rem;
+}
+
+
+.country-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 4rem;
+  width: 100%;
+}
+
+.country-details img {
+  /* height: 30rem;
+  width: 40rem; */
+  height: 90%;
+  width: 80%;
+}
+
+.country-details .detail-section {
+  padding: 2rem 0 0;
+  text-align: left;
+  width: 100%;
+}
+
+.country-details .detail-section .details {
+  display: flex;
+  margin: 2rem 0 4rem;
+}
+
+.country-details .detail-section .details div:not(:last-child) {
+  margin-right: 8rem;
+}
+
+.country-details .detail-section h4 {
+  margin-bottom: 1rem;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.country-details .detail-section .button-style {
+  padding: .2rem .4rem;
+  background-color: var(--Very-Light-Gray);
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 1px #111517;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.App.dark .country-details .detail-section .button-style {
+  background-color: var(--Dark-Blue);
+}
+
+.country-details .detail-section .details h4 span {
+  font-weight: 400;
+}
+
+.border-countries, .languages-div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: .5rem;
+}
+
+.border-countries .button-style, .languages-div span {
+  margin-bottom: 1rem;
+}
+
+/* Country page */
+
+
+@media (max-width: 860px) {
+
+  .filter-countries {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 4rem 1rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .filter-countries .search-filter {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+    background-color: var(--White);
+  }
+
+  .filter-countries .region-filter {
+    position: relative;
+    align-self: flex-start;
+    margin-top: 3rem;
+  }
+
+  .countries {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem 4rem;
+    width: 100%;
+  }
+
+  .country-page {
+    overflow-y: visible;
+  }
+  
+  .country-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4rem 6rem;
+    width: 100%;
+  }
+  
+  .country-details img {
+    width: 100%;
+    height: 20rem;
+  }
+  
+  .country-details .detail-section .details {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0 3rem;
+  }
+  
+  .country-details .detail-section .details div:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 3rem;
+  }
+
+ .border-countries .button-style {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
+  
+  .navbar h1 {
+    font-family: cursive;
+    font-size: 20px;
+  }
+  
+  .navbar .theme-toggle {
+    font-size: 12px;
+    padding: .3rem .8rem;
+  }
+  
+  .navbar .theme-icon {
+    margin-right: .5rem;
+  }
+
+  .filter-countries {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 2rem 1rem;
+  }
+
+  .country-page .go-back {
+    margin: 2rem;
+  }
+
+  .country-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2rem 6rem;
+    width: 100%;
   }
 }
